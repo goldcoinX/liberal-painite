@@ -1,1 +1,741 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liberal Painite | Let’s craft your next destination together.</title>
+    
+    <!-- Fonts: Inter for an Apple-like clean, modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons for premium, minimalist iconography -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            yellow: '#FFCC00', // Premium, vibrant yellow
+                            black: '#000000',
+                            white: '#FFFFFF',
+                            gray: '#F5F5F7', // Apple-esque off-white
+                            dark: '#1D1D1F'  // Deep rich gray-black
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: #FFFFFF;
+            color: #1D1D1F;
+            overflow-x: hidden;
+        }
+
+        /* Hide scrollbar for gallery but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Glassmorphism utilities */
+        .glass {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .glass-dark {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* Scroll reveal classes manipulated by JS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image hover effects */
+        .img-zoom-container {
+            overflow: hidden;
+        }
+        .img-zoom {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .img-zoom-container:hover .img-zoom {
+            transform: scale(1.05);
+        }
+
+        /* Custom Selection */
+        ::selection {
+            background-color: #FFCC00;
+            color: #000000;
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <header class="fixed top-0 w-full z-50 glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 bg-brand-yellow rounded-full flex items-center justify-center text-brand-black font-bold text-xl group-hover:scale-105 transition-transform">
+                        L
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-brand-black">Liberal Painite</span>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-8 items-center">
+                    <a href="#destinations" class="text-sm font-medium text-gray-600 hover:text-brand-black transition-colors">Destinations</a>
+                    <a href="#services" class="text-sm font-medium text-gray-600 hover:text-brand-black transition-colors">Services</a>
+                    <a href="#about" class="text-sm font-medium text-gray-600 hover:text-brand-black transition-colors">Why Us</a>
+                    <a href="#testimonials" class="text-sm font-medium text-gray-600 hover:text-brand-black transition-colors">Testimonials</a>
+                    <a href="#inquiry" class="bg-brand-black text-brand-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-brand-yellow hover:text-brand-black transition-all duration-300 shadow-lg shadow-black/10">
+                        Inquire Now
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden p-2 text-brand-black" id="mobile-menu-btn" aria-label="Menu">
+                    <i class="ph ph-list text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-xl">
+            <div class="px-6 pt-4 pb-6 space-y-4 flex flex-col">
+                <a href="#destinations" class="mobile-link text-base font-medium text-gray-800">Destinations</a>
+                <a href="#services" class="mobile-link text-base font-medium text-gray-800">Services</a>
+                <a href="#about" class="mobile-link text-base font-medium text-gray-800">Why Us</a>
+                <a href="#testimonials" class="mobile-link text-base font-medium text-gray-800">Testimonials</a>
+                <a href="#inquiry" class="mobile-link w-full text-center bg-brand-black text-brand-white px-6 py-3 rounded-full text-base font-medium mt-4">
+                    Inquire Now
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+        <!-- Hero Background -->
+        <div class="absolute inset-0 w-full h-full">
+            <img src="https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" 
+                 alt="Beautiful coastal destination" 
+                 class="w-full h-full object-cover"
+                 onerror="this.src='https://placehold.co/2000x1200/1D1D1F/FFFFFF?text=Premium+Travel+Destination'">
+            <div class="absolute inset-0 bg-black/40"></div> <!-- Overlay for text readability -->
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto mt-16 animate-fade-in-up">
+            <span class="inline-block py-1 px-3 rounded-full bg-brand-yellow/90 text-brand-black text-xs font-bold uppercase tracking-wider mb-6 backdrop-blur-sm">
+                Premium Travel Experiences
+            </span>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-tight mb-6 drop-shadow-lg">
+                Let’s craft your next <br class="hidden md:block">
+                <span class="text-brand-yellow">destination</span> together.
+            </h1>
+            <p class="text-lg md:text-2xl text-gray-200 mb-10 max-w-2xl mx-auto font-light">
+                Tailored vacation packages, exclusive tours, and hands-on support from inquiry to your safe return.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#inquiry" class="w-full sm:w-auto bg-brand-yellow text-brand-black px-8 py-4 rounded-full text-lg font-semibold hover:bg-white transition-colors duration-300 shadow-xl">
+                    Start Planning
+                </a>
+                <a href="#destinations" class="w-full sm:w-auto bg-white/10 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-white hover:text-brand-black transition-colors duration-300">
+                    Explore Destinations
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce-slow opacity-70">
+            <i class="ph ph-caret-down text-3xl"></i>
+        </div>
+    </section>
+
+    <section id="destinations" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold text-brand-black tracking-tight mb-4">Featured Destinations</h2>
+                <p class="text-gray-500 text-lg max-w-2xl mx-auto">Explore hand-picked packages across the globe, designed for unforgettable memories.</p>
+            </div>
+
+            <!-- Grid Layout -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dubai -->
+                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal">
+                    <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dubai" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/1D1D1F/FFFFFF?text=Dubai'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-3xl"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h3 class="text-3xl font-bold text-white mb-1">Dubai</h3>
+                                <p class="text-brand-yellow font-medium">Luxury & Adventure</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-brand-yellow group-hover:text-black transition-colors">
+                                <i class="ph ph-arrow-up-right text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thailand -->
+                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Thailand" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/1D1D1F/FFFFFF?text=Thailand'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-3xl"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h3 class="text-3xl font-bold text-white mb-1">Thailand</h3>
+                                <p class="text-brand-yellow font-medium">Culture & Beaches</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-brand-yellow group-hover:text-black transition-colors">
+                                <i class="ph ph-arrow-up-right text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cape Town -->
+                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal" style="transition-delay: 200ms;">
+                    <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cape Town" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/1D1D1F/FFFFFF?text=Cape+Town'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-3xl"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h3 class="text-3xl font-bold text-white mb-1">Cape Town</h3>
+                                <p class="text-brand-yellow font-medium">Nature & Wine</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-brand-yellow group-hover:text-black transition-colors">
+                                <i class="ph ph-arrow-up-right text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Europe (Spans 2 cols on lg) -->
+                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg lg:col-span-2 reveal">
+                    <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Europe" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/1200x800/1D1D1F/FFFFFF?text=Europe'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-3xl"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h3 class="text-3xl font-bold text-white mb-1">Europe Tours</h3>
+                                <p class="text-brand-yellow font-medium">Multi-City Experiences</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-brand-yellow group-hover:text-black transition-colors">
+                                <i class="ph ph-arrow-up-right text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zanzibar -->
+                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal" style="transition-delay: 100ms;">
+                    <img src="https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Zanzibar" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/1D1D1F/FFFFFF?text=Zanzibar'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-3xl"></div>
+                    <div class="absolute bottom-0 left-0 p-8 w-full">
+                        <div class="flex justify-between items-end">
+                            <div>
+                                <h3 class="text-3xl font-bold text-white mb-1">Zanzibar</h3>
+                                <p class="text-brand-yellow font-medium">Tropical Escape</p>
+                            </div>
+                            <div class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white group-hover:bg-brand-yellow group-hover:text-black transition-colors">
+                                <i class="ph ph-arrow-up-right text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center reveal">
+                <a href="#inquiry" class="inline-flex items-center gap-2 text-brand-black font-semibold hover:text-brand-yellow transition-colors text-lg">
+                    See All Packages <i class="ph ph-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="py-24 bg-brand-gray relative">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row justify-between items-end mb-16 gap-6 reveal">
+                <div class="max-w-2xl">
+                    <h2 class="text-4xl md:text-5xl font-bold text-brand-black tracking-tight mb-4">Everything You Need. <br>Nothing Left to Chance.</h2>
+                    <p class="text-gray-500 text-lg">Comprehensive travel solutions tailored for individuals, couples, and groups seeking a higher quality experience.</p>
+                </div>
+                <a href="#inquiry" class="bg-brand-black text-white px-8 py-4 rounded-full font-medium hover:bg-brand-yellow hover:text-black transition-colors shrink-0">
+                    Request a Service
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service 1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-shadow reveal">
+                    <div class="w-14 h-14 bg-brand-yellow/10 rounded-2xl flex items-center justify-center text-brand-yellow mb-6">
+                        <i class="ph ph-map-trifold text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-black mb-3">Custom Trip Planning</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Personalized itineraries crafted around your specific preferences, schedule, and travel style.</p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-shadow reveal" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 bg-brand-yellow/10 rounded-2xl flex items-center justify-center text-brand-yellow mb-6">
+                        <i class="ph ph-airplane-tilt text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-black mb-3">Airport Transfers</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Seamless, premium transport from the moment you land to your accommodation doorstep.</p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-shadow reveal" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 bg-brand-yellow/10 rounded-2xl flex items-center justify-center text-brand-yellow mb-6">
+                        <i class="ph ph-shield-check text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-black mb-3">Travel Insurance</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Comprehensive coverage options so you can explore the world with complete peace of mind.</p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-shadow reveal" style="transition-delay: 300ms;">
+                    <div class="w-14 h-14 bg-brand-yellow/10 rounded-2xl flex items-center justify-center text-brand-yellow mb-6">
+                        <i class="ph ph-users-three text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-brand-black mb-3">Group & Honeymoons</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">Expertly coordinated group tours and romantic getaway packages designed for unforgettable moments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Text Content -->
+                <div class="reveal">
+                    <h2 class="text-4xl md:text-5xl font-bold text-brand-black tracking-tight mb-6">Elevate Your Travel Expectations.</h2>
+                    <p class="text-gray-600 text-lg mb-8 leading-relaxed">
+                        At Liberal Painite, we don't just book flights—we curate experiences. We understand that modern travelers demand a higher standard. From your first inquiry to your journey back home, our personalized customer service ensures every detail is perfect.
+                    </p>
+                    
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-brand-yellow flex items-center justify-center shrink-0">
+                                <i class="ph ph-check text-black text-sm font-bold"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-black text-lg">Premium Experience</h4>
+                                <p class="text-gray-500 text-sm mt-1">High-quality accommodations, exclusive access, and tailored itineraries.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-brand-yellow flex items-center justify-center shrink-0">
+                                <i class="ph ph-check text-black text-sm font-bold"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-black text-lg">Hands-on Support</h4>
+                                <p class="text-gray-500 text-sm mt-1">Dedicated travel experts available to assist you before, during, and after your trip.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-brand-yellow flex items-center justify-center shrink-0">
+                                <i class="ph ph-check text-black text-sm font-bold"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-brand-black text-lg">Faster Delivery</h4>
+                                <p class="text-gray-500 text-sm mt-1">Prompt responses, rapid quote generation, and efficient booking processes.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Visual Gallery Mosaic -->
+                <div class="relative h-[600px] reveal">
+                    <div class="absolute top-0 right-0 w-2/3 h-3/4 rounded-3xl overflow-hidden shadow-2xl z-10">
+                        <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Travel view" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800/1D1D1F/FFFFFF?text=Travel'">
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-2/3 h-1/2 rounded-3xl overflow-hidden shadow-2xl z-20 border-4 border-white">
+                        <img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Travel" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400/1D1D1F/FFFFFF?text=Luxury'">
+                    </div>
+                    <!-- Decorative element -->
+                    <div class="absolute top-1/2 left-1/4 w-24 h-24 bg-brand-yellow rounded-full blur-3xl opacity-40 -z-10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-24 bg-brand-dark text-white relative overflow-hidden">
+        <!-- Abstract background accent -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand-yellow rounded-full blur-[150px] opacity-10 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight mb-4">Stories from the Journey</h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Don't just take our word for it. Hear from travelers who have explored the world with us.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 p-8 rounded-3xl reveal">
+                    <div class="flex text-brand-yellow mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6 italic">"Liberal Painite handled our honeymoon to Zanzibar flawlessly. Every transfer, accommodation, and tour was premium. We didn't have to worry about a single thing."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Sarah T." class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-white">Sarah T.</h5>
+                            <p class="text-gray-400 text-sm">Honeymoon Package</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 p-8 rounded-3xl reveal" style="transition-delay: 100ms;">
+                    <div class="flex text-brand-yellow mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6 italic">"The level of personalized service is unmatched. They planned our corporate group tour to Dubai, and the attention to detail was exactly what we needed."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="James M." class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-white">James M.</h5>
+                            <p class="text-gray-400 text-sm">Group Travel</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-white/5 backdrop-blur-lg border border-white/10 p-8 rounded-3xl reveal" style="transition-delay: 200ms;">
+                    <div class="flex text-brand-yellow mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-300 mb-6 italic">"I wanted a multi-city Europe trip but hated planning. Their experts crafted an itinerary that perfectly balanced sightseeing and relaxation."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="Elena R." class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-white">Elena R.</h5>
+                            <p class="text-gray-400 text-sm">Custom Trip</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="inquiry" class="py-24 bg-brand-gray">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row reveal">
+                <!-- Form Side -->
+                <div class="lg:w-3/5 p-10 lg:p-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-black mb-2">Let's Talk Travel.</h2>
+                    <p class="text-gray-500 mb-8">Fill out the form below to request a quote, book a consultation, or start planning your custom trip.</p>
+                    
+                    <form id="inquiryForm" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone / WhatsApp</label>
+                                <input type="tel" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Service of Interest</label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow bg-white">
+                                <option>Vacation Package / Custom Trip</option>
+                                <option>Group Tour</option>
+                                <option>Honeymoon Package</option>
+                                <option>Airport Transfer</option>
+                                <option>Travel Insurance</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Tell us about your plans (Destinations, Dates, etc.)</label>
+                            <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brand-black text-white py-4 rounded-xl font-bold text-lg hover:bg-brand-yellow hover:text-black transition-colors duration-300 shadow-lg">
+                            Submit Inquiry
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Image Side -->
+                <div class="lg:w-2/5 relative min-h-[400px] hidden lg:block">
+                    <img src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Travel Planning" class="absolute inset-0 w-full h-full object-cover" onerror="this.src='https://placehold.co/600x800/1D1D1F/FFFFFF?text=Planning'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <div class="absolute bottom-10 left-10 right-10">
+                        <h3 class="text-2xl font-bold text-white mb-2">Expert Planners.</h3>
+                        <p class="text-gray-300">We handle the logistics. You enjoy the journey.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-20 pb-10 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                <!-- Brand Col -->
+                <div class="lg:col-span-1">
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-brand-yellow rounded-full flex items-center justify-center text-brand-black font-bold text-xl">
+                            L
+                        </div>
+                        <span class="font-bold text-xl tracking-tight text-white">Liberal Painite</span>
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">Let’s craft your next destination together. Premium travel packages, tours, and experiences.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-black transition-colors"><i class="ph ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-black transition-colors"><i class="ph ph-facebook-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-black transition-colors"><i class="ph ph-twitter-logo text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Quick Links</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#destinations" class="hover:text-brand-yellow transition-colors">Destinations</a></li>
+                        <li><a href="#services" class="hover:text-brand-yellow transition-colors">Services</a></li>
+                        <li><a href="#about" class="hover:text-brand-yellow transition-colors">Why Choose Us</a></li>
+                        <li><a href="#testimonials" class="hover:text-brand-yellow transition-colors">Testimonials</a></li>
+                        <li><a href="#inquiry" class="hover:text-brand-yellow transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Services</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-brand-yellow transition-colors">Vacation Packages</a></li>
+                        <li><a href="#" class="hover:text-brand-yellow transition-colors">Custom Trip Planning</a></li>
+                        <li><a href="#" class="hover:text-brand-yellow transition-colors">Honeymoons & Groups</a></li>
+                        <li><a href="#" class="hover:text-brand-yellow transition-colors">Airport Transfers</a></li>
+                        <li><a href="#" class="hover:text-brand-yellow transition-colors">Travel Insurance</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="font-bold text-lg mb-6">Stay Updated</h4>
+                    <p class="text-sm text-gray-400 mb-4">Subscribe for the latest travel tips, visa-free destinations, and exclusive offers.</p>
+                    <form id="newsletterForm" class="flex gap-2">
+                        <input type="email" placeholder="Your email address" required class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-brand-yellow">
+                        <button type="submit" class="bg-brand-yellow text-black px-4 py-2 rounded-xl font-bold hover:bg-white transition-colors">
+                            <i class="ph ph-paper-plane-right"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                <p>&copy; 2026 Liberal Painite Travel. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" 
+       class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] hover:scale-110 transition-transform duration-300 animate-bounce-slow"
+       aria-label="Chat on WhatsApp">
+        <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
+    </a>
+
+    <!-- Custom Message Modal (Replacing alert) -->
+    <div id="customModal" class="fixed inset-0 z-[100] hidden items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="modalOverlay"></div>
+        <div class="bg-white rounded-3xl p-8 max-w-sm w-full relative z-10 shadow-2xl transform scale-95 opacity-0 transition-all duration-300" id="modalContent">
+            <div class="w-16 h-16 bg-brand-yellow/20 rounded-full flex items-center justify-center text-brand-yellow mx-auto mb-6">
+                <i class="ph ph-check-circle text-4xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-center text-brand-black mb-2" id="modalTitle">Success!</h3>
+            <p class="text-center text-gray-600 mb-8" id="modalMessage">Your message has been sent.</p>
+            <button id="closeModalBtn" class="w-full bg-brand-black text-white py-3 rounded-xl font-bold hover:bg-brand-yellow hover:text-black transition-colors">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Navbar Scroll Effect ---
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-md');
+                    navbar.classList.replace('py-4', 'py-0'); // Slight height compress via padding if added, not strictly needed with h-20 fixed
+                } else {
+                    navbar.classList.remove('shadow-md');
+                }
+            });
+
+            // --- Mobile Menu Toggle ---
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = menuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.replace('ph-x', 'ph-list');
+                } else {
+                    icon.classList.replace('ph-list', 'ph-x');
+                }
+            });
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    menuBtn.querySelector('i').classList.replace('ph-x', 'ph-list');
+                });
+            });
+
+            // --- Scroll Reveal Animations ---
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Run once
+                    }
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // --- Custom Modal Logic (Replacing Alert) ---
+            const modal = document.getElementById('customModal');
+            const modalOverlay = document.getElementById('modalOverlay');
+            const modalContent = document.getElementById('modalContent');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalMessage = document.getElementById('modalMessage');
+
+            const showModal = (title, message) => {
+                modalTitle.textContent = title;
+                modalMessage.textContent = message;
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                
+                // Trigger animation
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-95', 'opacity-0');
+                    modalContent.classList.add('scale-100', 'opacity-100');
+                }, 10);
+            };
+
+            const hideModal = () => {
+                modalContent.classList.remove('scale-100', 'opacity-100');
+                modalContent.classList.add('scale-95', 'opacity-0');
+                
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex');
+                }, 300);
+            };
+
+            closeModalBtn.addEventListener('click', hideModal);
+            modalOverlay.addEventListener('click', hideModal);
+
+            // --- Form Submissions ---
+            const inquiryForm = document.getElementById('inquiryForm');
+            inquiryForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Simulate processing
+                const btn = inquiryForm.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i>';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    showModal('Inquiry Received!', 'Thank you. One of our travel experts will contact you within 24 hours to craft your destination.');
+                    inquiryForm.reset();
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 1500);
+            });
+
+            const newsletterForm = document.getElementById('newsletterForm');
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                showModal('Subscribed!', 'You are now on the list for the latest travel tips and exclusive destination offers.');
+                newsletterForm.reset();
+            });
+        });
+    </script>
+</body>
+</html>
