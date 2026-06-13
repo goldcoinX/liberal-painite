@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- This meta tag fixes the broken Unsplash images by preventing referrer tracking -->
+    <meta name="referrer" content="no-referrer">
     <title>Liberal Painite | Let’s craft your next destination together.</title>
     
     <!-- Fonts: Inter for an Apple-like clean, modern look -->
@@ -113,10 +115,8 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
-                <a href="#" class="flex items-center gap-2 group">
-                    <div class="w-8 h-8 bg-brand-yellow rounded-full flex items-center justify-center text-brand-black font-bold text-xl group-hover:scale-105 transition-transform">
-                        L
-                    </div>
+                <a href="#" class="flex items-center gap-3 group">
+                    <img src="https://uploads.onecompiler.io/44jjpumhc/1781199567279/liberal_painite_logo.jpeg" alt="Liberal Painite Logo" class="h-12 w-auto object-contain rounded-lg bg-white p-1 shadow-sm group-hover:scale-105 transition-transform">
                     <span class="font-bold text-xl tracking-tight text-brand-black">Liberal Painite</span>
                 </a>
 
@@ -200,7 +200,7 @@
             <!-- Grid Layout -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Dubai -->
-                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal">
+                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal destination-card" data-dest="dubai">
                     <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Dubai" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/1D1D1F/FFFFFF?text=Dubai'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-3xl"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
@@ -217,7 +217,7 @@
                 </div>
 
                 <!-- Thailand -->
-                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal" style="transition-delay: 100ms;">
+                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal destination-card" data-dest="thailand" style="transition-delay: 100ms;">
                     <img src="https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Thailand" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/1D1D1F/FFFFFF?text=Thailand'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-3xl"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
@@ -234,7 +234,7 @@
                 </div>
 
                 <!-- Cape Town -->
-                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal" style="transition-delay: 200ms;">
+                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal destination-card" data-dest="capetown" style="transition-delay: 200ms;">
                     <img src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Cape Town" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/1D1D1F/FFFFFF?text=Cape+Town'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-3xl"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
@@ -251,7 +251,7 @@
                 </div>
 
                 <!-- Europe (Spans 2 cols on lg) -->
-                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg lg:col-span-2 reveal">
+                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg lg:col-span-2 reveal destination-card" data-dest="europe">
                     <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" alt="Europe" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/1200x800/1D1D1F/FFFFFF?text=Europe'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-3xl"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
@@ -268,7 +268,7 @@
                 </div>
 
                 <!-- Zanzibar -->
-                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal" style="transition-delay: 100ms;">
+                <div class="group relative h-96 rounded-3xl img-zoom-container cursor-pointer shadow-lg reveal destination-card" data-dest="zanzibar" style="transition-delay: 100ms;">
                     <img src="https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Zanzibar" class="w-full h-full object-cover img-zoom" onerror="this.src='https://placehold.co/600x800/1D1D1F/FFFFFF?text=Zanzibar'">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent rounded-3xl"></div>
                     <div class="absolute bottom-0 left-0 p-8 w-full">
@@ -478,28 +478,28 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                                <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
+                                <input type="text" id="firstName" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                                <input type="text" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
+                                <input type="text" id="lastName" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
                             </div>
                         </div>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                                <input type="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
+                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Phone / WhatsApp</label>
-                                <input type="tel" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
+                                <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow">
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Service of Interest</label>
-                            <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow bg-white">
+                            <select id="service" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow bg-white">
                                 <option>Vacation Package / Custom Trip</option>
                                 <option>Group Tour</option>
                                 <option>Honeymoon Package</option>
@@ -510,7 +510,7 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Tell us about your plans (Destinations, Dates, etc.)</label>
-                            <textarea rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow resize-none"></textarea>
+                            <textarea id="details" rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-yellow focus:border-transparent transition-shadow resize-none"></textarea>
                         </div>
 
                         <button type="submit" class="w-full bg-brand-black text-white py-4 rounded-xl font-bold text-lg hover:bg-brand-yellow hover:text-black transition-colors duration-300 shadow-lg">
@@ -539,15 +539,13 @@
                 
                 <!-- Brand Col -->
                 <div class="lg:col-span-1">
-                    <a href="#" class="flex items-center gap-2 mb-6">
-                        <div class="w-8 h-8 bg-brand-yellow rounded-full flex items-center justify-center text-brand-black font-bold text-xl">
-                            L
-                        </div>
+                    <a href="#" class="flex items-center gap-3 mb-6">
+                        <img src="https://uploads.onecompiler.io/44jjpumhc/1781199567279/liberal_painite_logo.jpeg" alt="Liberal Painite Logo" class="h-12 w-auto object-contain rounded-lg bg-white p-1 shadow-sm">
                         <span class="font-bold text-xl tracking-tight text-white">Liberal Painite</span>
                     </a>
                     <p class="text-gray-400 text-sm leading-relaxed mb-6">Let’s craft your next destination together. Premium travel packages, tours, and experiences.</p>
                     <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-black transition-colors"><i class="ph ph-instagram-logo text-xl"></i></a>
+                        <a href="https://www.instagram.com/liberalpainite" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-black transition-colors"><i class="ph ph-instagram-logo text-xl"></i></a>
                         <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-black transition-colors"><i class="ph ph-facebook-logo text-xl"></i></a>
                         <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-yellow hover:text-black transition-colors"><i class="ph ph-twitter-logo text-xl"></i></a>
                     </div>
@@ -601,7 +599,7 @@
     </footer>
 
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" 
+    <a href="https://wa.me/2348163131488" target="_blank" rel="noopener noreferrer" 
        class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_8px_30px_rgba(37,211,102,0.4)] hover:scale-110 transition-transform duration-300 animate-bounce-slow"
        aria-label="Chat on WhatsApp">
         <i class="ph-fill ph-whatsapp-logo text-3xl"></i>
@@ -618,6 +616,35 @@
             <p class="text-center text-gray-600 mb-8" id="modalMessage">Your message has been sent.</p>
             <button id="closeModalBtn" class="w-full bg-brand-black text-white py-3 rounded-xl font-bold hover:bg-brand-yellow hover:text-black transition-colors">
                 Close
+            </button>
+        </div>
+    </div>
+
+    <!-- Destination Details Modal -->
+    <div id="destModal" class="fixed inset-0 z-[110] hidden items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="destModalOverlay"></div>
+        <div class="bg-white rounded-[2rem] p-6 md:p-8 max-w-2xl w-full relative z-10 shadow-2xl transform scale-95 opacity-0 transition-all duration-300 max-h-[90vh] overflow-y-auto no-scrollbar" id="destModalContent">
+            
+            <button id="closeDestModalBtn" class="absolute top-4 right-4 w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors z-20 text-brand-black">
+                <i class="ph ph-x text-xl"></i>
+            </button>
+
+            <!-- Mini Gallery -->
+            <div class="grid grid-cols-2 gap-3 mb-6" id="destModalGallery">
+                <img src="" id="destImg1" class="col-span-2 w-full h-48 md:h-64 object-cover rounded-2xl bg-gray-100">
+                <img src="" id="destImg2" class="col-span-1 w-full h-32 md:h-40 object-cover rounded-2xl bg-gray-100">
+                <img src="" id="destImg3" class="col-span-1 w-full h-32 md:h-40 object-cover rounded-2xl bg-gray-100">
+            </div>
+
+            <!-- Content -->
+            <h3 class="text-3xl font-bold text-brand-black mb-1" id="destModalTitle">Title</h3>
+            <p class="text-brand-yellow font-medium mb-4" id="destModalSubtitle">Subtitle</p>
+            <p class="text-gray-600 mb-8 leading-relaxed" id="destModalDesc">Description</p>
+
+            <!-- Book Button -->
+            <button id="bookDestBtn" class="w-full bg-[#25D366] text-white py-4 rounded-xl font-bold text-lg hover:bg-[#1ebd5a] transition-colors duration-300 shadow-lg flex items-center justify-center gap-2">
+                <i class="ph-fill ph-whatsapp-logo text-2xl"></i>
+                Book this destination
             </button>
         </div>
     </div>
@@ -711,22 +738,138 @@
             closeModalBtn.addEventListener('click', hideModal);
             modalOverlay.addEventListener('click', hideModal);
 
+            // --- Destination Modal Logic ---
+            const destModal = document.getElementById('destModal');
+            const destModalOverlay = document.getElementById('destModalOverlay');
+            const destModalContent = document.getElementById('destModalContent');
+            const closeDestModalBtn = document.getElementById('closeDestModalBtn');
+            
+            // High-quality Unsplash image gallery & data for each destination
+            const destData = {
+                dubai: {
+                    title: "Dubai", subtitle: "Luxury & Adventure",
+                    desc: "Experience the pinnacle of luxury, towering skyscrapers, expansive deserts, and world-class shopping. A perfect blend of futuristic vision and rich traditions.",
+                    imgs: [
+                        "https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80", 
+                        "https://images.unsplash.com/photo-1582672060624-cbab610a7247?auto=format&fit=crop&w=400&q=80", 
+                        "https://images.unsplash.com/photo-1546412414-8035e1776c9a?auto=format&fit=crop&w=400&q=80"
+                    ]
+                },
+                thailand: {
+                    title: "Thailand", subtitle: "Culture & Beaches",
+                    desc: "Immerse yourself in vibrant street life, majestic temples, and pristine tropical beaches. Thailand offers an unforgettable sensory journey full of flavor and history.",
+                    imgs: [
+                        "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?auto=format&fit=crop&w=800&q=80", 
+                        "https://images.unsplash.com/photo-1537956965359-7573183d1f57?auto=format&fit=crop&w=400&q=80", 
+                        "https://images.unsplash.com/photo-1563492065599-3520f775eeed?auto=format&fit=crop&w=400&q=80"
+                    ]
+                },
+                capetown: {
+                    title: "Cape Town", subtitle: "Nature & Wine",
+                    desc: "Discover breathtaking coastal drives, majestic Table Mountain, and world-renowned vineyards. Cape Town is a paradise for nature lovers and foodies alike.",
+                    imgs: [
+                        "https://images.unsplash.com/photo-1580060839134-75a5edca2e99?auto=format&fit=crop&w=800&q=80", 
+                        "https://images.unsplash.com/photo-1576485290814-1c72aa4bbb8e?auto=format&fit=crop&w=400&q=80", 
+                        "https://images.unsplash.com/photo-1601972589334-712c4b8b64b1?auto=format&fit=crop&w=400&q=80"
+                    ]
+                },
+                europe: {
+                    title: "Europe Tours", subtitle: "Multi-City Experiences",
+                    desc: "Wander through centuries of history, from the romantic streets of Paris to the ruins of Rome. A curated journey through Europe's most iconic landmarks and hidden gems.",
+                    imgs: [
+                        "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&fit=crop&w=800&q=80", 
+                        "https://images.unsplash.com/photo-1522093007474-d86e9bf7ba6f?auto=format&fit=crop&w=400&q=80", 
+                        "https://images.unsplash.com/photo-1513622470522-26cb3c8d560f?auto=format&fit=crop&w=400&q=80"
+                    ]
+                },
+                zanzibar: {
+                    title: "Zanzibar", subtitle: "Tropical Escape",
+                    desc: "Relax on white-sand beaches, swim in turquoise waters, and explore the historic Stone Town. Zanzibar is the ultimate idyllic island getaway.",
+                    imgs: [
+                        "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=800&q=80", 
+                        "https://images.unsplash.com/photo-1523497808892-1279269d06b6?auto=format&fit=crop&w=400&q=80", 
+                        "https://images.unsplash.com/photo-1559828551-7f8976231908?auto=format&fit=crop&w=400&q=80"
+                    ]
+                }
+            };
+
+            let currentDest = '';
+
+            // Attach click events to destination cards
+            document.querySelectorAll('.destination-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const destKey = card.getAttribute('data-dest');
+                    const data = destData[destKey];
+                    currentDest = data.title;
+                    
+                    // Populate modal data
+                    document.getElementById('destImg1').src = data.imgs[0];
+                    document.getElementById('destImg2').src = data.imgs[1];
+                    document.getElementById('destImg3').src = data.imgs[2];
+                    document.getElementById('destModalTitle').textContent = data.title;
+                    document.getElementById('destModalSubtitle').textContent = data.subtitle;
+                    document.getElementById('destModalDesc').textContent = data.desc;
+
+                    // Show Modal
+                    destModal.classList.remove('hidden');
+                    destModal.classList.add('flex');
+                    setTimeout(() => {
+                        destModalContent.classList.remove('scale-95', 'opacity-0');
+                        destModalContent.classList.add('scale-100', 'opacity-100');
+                    }, 10);
+                });
+            });
+
+            // Hide Modal logic
+            const hideDestModal = () => {
+                destModalContent.classList.remove('scale-100', 'opacity-100');
+                destModalContent.classList.add('scale-95', 'opacity-0');
+                setTimeout(() => {
+                    destModal.classList.add('hidden');
+                    destModal.classList.remove('flex');
+                }, 300);
+            };
+
+            closeDestModalBtn.addEventListener('click', hideDestModal);
+            destModalOverlay.addEventListener('click', hideDestModal);
+
+            // WhatsApp Booking Button inside Modal
+            document.getElementById('bookDestBtn').addEventListener('click', () => {
+                const message = `Hello Liberal Painite, I am interested in booking a trip to ${currentDest}. Could you provide me with more details and pricing?`;
+                window.open(`https://wa.me/2348163131488?text=${encodeURIComponent(message)}`, '_blank');
+            });
+
             // --- Form Submissions ---
             const inquiryForm = document.getElementById('inquiryForm');
             inquiryForm.addEventListener('submit', (e) => {
                 e.preventDefault();
-                // Simulate processing
+                
+                // Get form values
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const service = document.getElementById('service').value;
+                const details = document.getElementById('details').value;
+
+                // Format the WhatsApp message using encoded URI components for line breaks
+                const message = `Hello Liberal Painite, I would like to make an inquiry:%0A%0A*Name:* ${firstName} ${lastName}%0A*Email:* ${email}%0A*Phone:* ${phone}%0A*Service:* ${service}%0A*Details:* ${details}`;
+                
+                // Simulate processing UI
                 const btn = inquiryForm.querySelector('button[type="submit"]');
                 const originalText = btn.innerHTML;
-                btn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i>';
+                btn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i> Redirecting...';
                 btn.disabled = true;
 
                 setTimeout(() => {
-                    showModal('Inquiry Received!', 'Thank you. One of our travel experts will contact you within 24 hours to craft your destination.');
+                    // Open WhatsApp in a new tab with the pre-filled message
+                    window.open(`https://wa.me/2348163131488?text=${message}`, '_blank');
+                    
+                    showModal('Redirecting to WhatsApp!', 'Your inquiry details have been transferred to WhatsApp. Please hit "Send" in WhatsApp to complete your inquiry.');
                     inquiryForm.reset();
                     btn.innerHTML = originalText;
                     btn.disabled = false;
-                }, 1500);
+                }, 800);
             });
 
             const newsletterForm = document.getElementById('newsletterForm');
